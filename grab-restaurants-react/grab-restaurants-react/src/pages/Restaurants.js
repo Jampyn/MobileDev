@@ -16,6 +16,15 @@ const Restaurants = () => {
         }
         fetchAllRestaurants();
     },[])
+    const handleDelete = async (id) =>{        //เรียกใช้ api
+        try{
+            await axios.delete(`http://localhost:5000/apis/restaurants/${id}`);
+            window.location.reload()
+        }catch (error){
+            console.log(error);
+        }
+
+    }
   return (
     <div className='container'>
         <h1>Grab Restaurant</h1>
@@ -24,12 +33,15 @@ const Restaurants = () => {
                 {
                     restaurants.map((restaurant) => {
                         return(
-                            <div className='card' key={restaurant.id}>
+                            <div className='card'
+                             style={{width: "18rem"}}
+                             key={restaurant.id}>
                                 <img src={restaurant.imageurl} className="card-image-top" alt=""/>
                                 <div className='card-body'>
                                     <h5 className='title'>{restaurant.name}</h5> 
                                     <p className='card-text'>{restaurant.type}</p>
-                                    <Link to="{}" className='btn btn-danger px-2'>Delete</Link>
+                                    <Link to="" className='btn btn-danger px-2' 
+                                    onClick={() =>handleDelete(restaurant.id)}>Delete</Link>
                                     <Link to={"/update/" + restaurant.id} className='btn btn-warning px-2'>
                                     Edit
                                     </Link>
