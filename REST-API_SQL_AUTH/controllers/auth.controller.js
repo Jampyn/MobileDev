@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
               [Op.or]: req.body.roles,
             },
           },
-        }).then((Roles) => {
+        }).then((roles) => {
           user.setRoles(roles).then(() => {
             //คำสั่งในการ set user
             res.send({ message: "User was registered successfully" });
